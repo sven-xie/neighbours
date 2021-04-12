@@ -1,0 +1,44 @@
+{
+  "menu": [
+    {
+      "title": "门禁",
+      "imagePath": "assets/images/wuye.png",
+      "url": ""
+    },
+  
+    {
+      "title": "公告",
+      "imagePath": "assets/images/wuye.png",
+      "url": ""
+    },
+  
+    {
+      "title": "缴费",
+      "imagePath": "assets/images/wuye.png",
+      "url": ""
+    },
+  
+    {
+      "title": "访客",
+      "imagePath": "assets/images/wuye.png",
+      "url": ""
+    },
+  
+    {
+      "title": "车位",
+      "imagePath": "assets/images/wuye.png",
+      "url": ""
+    },
+    {
+      "title": "建议",
+      "imagePath": "assets/images/wuye.png",
+      "url": ""
+    },
+  
+    {
+      "title": "联系管家",
+      "imagePath": "assets/images/wuye.png",
+      "url": ""
+    }
+  ]
+}
