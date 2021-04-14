@@ -14,8 +14,8 @@ import 'package:neighbours/ui/commonwidgets/user_common_bar.dart';
 import 'package:neighbours/ui/widgets/loadmore/loader.dart';
 import 'dart:async';
 import 'package:neighbours/ui/widgets/nested_refresh/x_nested_refresh_load_more.dart';
-
 import 'package:neighbours/ui/widgets/custom_sliver_delegate.dart';
+import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class CommentDetailPage extends StatefulWidget {
   @override
@@ -44,10 +44,9 @@ class _CommentDetailPageState extends State<CommentDetailPage> {
             },
             itemBuilder: (BuildContext context) =>
                 menuList.map((String menuName) {
-                  return new PopupMenuItem<String>(
-                      value: menuName,
-                      child: Center(child: new Text(menuName)));
-                }).toList(),
+              return new PopupMenuItem<String>(
+                  value: menuName, child: Center(child: new Text(menuName)));
+            }).toList(),
           ),
         ],
         elevation: 0,
@@ -107,10 +106,17 @@ class _CommentDetailBodyState extends State<_CommentDetailBody>
     super.dispose();
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: Text("askjdlfaj"),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: NestedScrollViewRefreshIndicator(
+        body: PullToRefreshNotification(
       onRefresh: onRefresh,
       child: extended.NestedScrollView(
         physics: ClampingScrollPhysics(),
@@ -172,55 +178,52 @@ class _CommentDetailBodyState extends State<_CommentDetailBody>
                 min: 45.0,
                 max: 45.0,
                 builder: (context, state) => CContainer(
-                      height: 45.0,
-                      color: (state.isPinned ? Colours.app_main : Colours.white)
-                          .withOpacity(1.0 - state.scrollPercentage),
-                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: TabBar(
-                        indicatorColor:
-                            (state.isPinned ? Colours.white : Colours.app_main)
-                                .withOpacity(1.0 - state.scrollPercentage),
-                        labelStyle: TextStyle(fontSize: 16),
-                        unselectedLabelStyle: TextStyle(fontSize: 16),
-                        isScrollable: true,
-                        tabs: [
-                          Tab(
-                            child: Text(
-                              "评论",
-                              style: TextStyle(
-                                  color: (state.isPinned
-                                          ? Colours.white
-                                          : Colours.text_title)
-                                      .withOpacity(
-                                          1.0 - state.scrollPercentage)),
-                            ),
-                          ),
-                          Tab(
-                            child: Text(
-                              "点赞",
-                              style: TextStyle(
-                                  color: (state.isPinned
-                                          ? Colours.white
-                                          : Colours.text_title)
-                                      .withOpacity(
-                                          1.0 - state.scrollPercentage)),
-                            ),
-                          ),
-                          Tab(
-                            child: Text(
-                              "收藏",
-                              style: TextStyle(
-                                  color: (state.isPinned
-                                          ? Colours.white
-                                          : Colours.text_title)
-                                      .withOpacity(
-                                          1.0 - state.scrollPercentage)),
-                            ),
-                          ),
-                        ],
-                        controller: _tabController,
+                  height: 45.0,
+                  color: (state.isPinned ? Colours.app_main : Colours.white)
+                      .withOpacity(1.0 - state.scrollPercentage),
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: TabBar(
+                    indicatorColor:
+                        (state.isPinned ? Colours.white : Colours.app_main)
+                            .withOpacity(1.0 - state.scrollPercentage),
+                    labelStyle: TextStyle(fontSize: 16),
+                    unselectedLabelStyle: TextStyle(fontSize: 16),
+                    isScrollable: true,
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          "评论",
+                          style: TextStyle(
+                              color: (state.isPinned
+                                      ? Colours.white
+                                      : Colours.text_title)
+                                  .withOpacity(1.0 - state.scrollPercentage)),
+                        ),
                       ),
-                    ),
+                      Tab(
+                        child: Text(
+                          "点赞",
+                          style: TextStyle(
+                              color: (state.isPinned
+                                      ? Colours.white
+                                      : Colours.text_title)
+                                  .withOpacity(1.0 - state.scrollPercentage)),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "收藏",
+                          style: TextStyle(
+                              color: (state.isPinned
+                                      ? Colours.white
+                                      : Colours.text_title)
+                                  .withOpacity(1.0 - state.scrollPercentage)),
+                        ),
+                      ),
+                    ],
+                    controller: _tabController,
+                  ),
+                ),
               ),
             ),
           );
@@ -233,7 +236,7 @@ class _CommentDetailBodyState extends State<_CommentDetailBody>
             return extended.NestedScrollViewInnerScrollPositionKeyWidget(
               Key(name),
               // RefreshLoadMoreList(topBouncing: false,enableRefresh: false,dataLoader: _dataLoader,contentBuilder: _contentBuilder4,),
-            
+
               EasyRefresh(
                 topBouncing: false,
                 footer: MyFooter(),
@@ -275,24 +278,23 @@ class _CommentDetailBodyState extends State<_CommentDetailBody>
     list.clear();
   }
 
-  CustomScrollView _contentBuilder4(BuildContext context, DataLoadMoreBase dataLoader) {
+  CustomScrollView _contentBuilder4(
+      BuildContext context, DataLoadMoreBase dataLoader) {
     return CustomScrollView(
-                  physics: ClampingScrollPhysics(),
-                  slivers: <Widget>[
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          return Column(
-                            children: <Widget>[
-                              Container(height: 100.0, child: Text("点赞"))
-                            ],
-                          );
-                        },
-                        childCount: _listCount,
-                      ),
-                    ),
-                  ],
-                );
+      physics: ClampingScrollPhysics(),
+      slivers: <Widget>[
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return Column(
+                children: <Widget>[Container(height: 100.0, child: Text("点赞"))],
+              );
+            },
+            childCount: _listCount,
+          ),
+        ),
+      ],
+    );
   }
 }
 

@@ -67,9 +67,9 @@ abstract class DataLoadMoreBase<DATA, MODEL> extends ListBase<DATA> {
   /// [isRefresh] 是否清空原来的数据
   Future<void> loadData([bool isRefresh = false]) async {
     int currentPage = isRefresh ? 1 : _currentPage + 1;
-    if (refreshController!=null){
+    if (refreshController != null) {
       refreshController.finishLoad(success: true);
-      if (isRefresh){
+      if (isRefresh) {
         refreshController.finishLoad(noMore: false);
       }
     }
@@ -88,23 +88,25 @@ abstract class DataLoadMoreBase<DATA, MODEL> extends ListBase<DATA> {
 
     print(
         "loadData: isRefresh == $isRefresh; success == $success; noMore == $noMore; empty == $empty");
-    if (success) {
-      _currentPage = currentPage;
+    if (refreshController != null) {
+      if (success) {
+        _currentPage = currentPage;
 
-      if (isRefresh) {
-        refreshController.finishRefresh(success: success);
-        if (noMore) {
+        if (isRefresh) {
+          refreshController.finishRefresh(success: success);
+          if (noMore) {
+            refreshController.finishLoad(noMore: noMore);
+          }
+        } else {
           refreshController.finishLoad(noMore: noMore);
         }
       } else {
-        refreshController.finishLoad(noMore: noMore);
-      }
-    } else {
-      if (isRefresh) {
-        isRefreshError = true;
-        refreshController.finishRefresh(success: success);
-      } else {
-        refreshController.finishLoad(success: success);
+        if (isRefresh) {
+          isRefreshError = true;
+          refreshController.finishRefresh(success: success);
+        } else {
+          refreshController.finishLoad(success: success);
+        }
       }
     }
     onStateChanged(this);

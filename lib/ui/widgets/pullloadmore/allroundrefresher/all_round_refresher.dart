@@ -10,12 +10,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 
-enum RefreshStatus { init, idle, canRefresh, refreshing, completed, failed,noData }
+enum RefreshStatus {
+  init,
+  idle,
+  canRefresh,
+  refreshing,
+  completed,
+  failed,
+  noData
+}
 
 enum LoadStatus { idle, loading, noMore, error }
 
 enum RefreshStyle { Follow, UnFollow, Behind }
-enum ResultStatus { init, nomel, refreshError, noData, loadError, noMore, retry }
+enum ResultStatus {
+  init,
+  nomel,
+  refreshError,
+  noData,
+  loadError,
+  noMore,
+  retry
+}
 
 /*
     This is the most important component that provides full functionality.
@@ -43,7 +59,7 @@ class AllRoundRefresher extends StatefulWidget {
   final Widget progress;
 
   //This is a custom error widget
-  final Widget error,noDataView;
+  final Widget error, noDataView;
 
   //if open OverScroll if you use RefreshIndicator and LoadFooter
   final bool enableOverScroll;
@@ -103,8 +119,7 @@ class AllRoundRefresher extends StatefulWidget {
   AllRoundRefresherState createState() => AllRoundRefresherState();
 
   static AllRoundRefresherState of(BuildContext context) {
-    return context
-        ?.ancestorStateOfType(const TypeMatcher<AllRoundRefresherState>());
+    return context?.findAncestorStateOfType<AllRoundRefresherState>();
   }
 }
 
@@ -220,14 +235,19 @@ class AllRoundRefresherState extends State<AllRoundRefresher> {
             reverse: widget.child.reverse,
           ),
           new Offstage(
-            offstage: widget.controller.headerStatus == RefreshStatus.noData ? false : true,
+            offstage: widget.controller.headerStatus == RefreshStatus.noData
+                ? false
+                : true,
             child: new Container(
               alignment: Alignment.center,
-              child: widget.noDataView == null ? Text('暂无数据') : widget.noDataView,
+              child:
+                  widget.noDataView == null ? Text('暂无数据') : widget.noDataView,
             ),
           ),
           new Offstage(
-            offstage: widget.controller.headerStatus == RefreshStatus.init ? false : true,
+            offstage: widget.controller.headerStatus == RefreshStatus.init
+                ? false
+                : true,
             child: new Container(
               alignment: Alignment.center,
               child: widget.progress == null ? ProgressView() : widget.progress,
@@ -290,7 +310,6 @@ class RefreshController {
     if (headerStatus == RefreshStatus.idle)
       scrollController.animateTo(-_header.triggerDistance,
           duration: duration, curve: curve);
-
   }
 
   void requestLoading(

@@ -1,53 +1,38 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
-import 'dart:math' as math;
 import 'package:neighbours/base/_base_widget.dart';
 import 'package:neighbours/common/component_index.dart';
 import 'package:neighbours/ui/pages/search/search_page.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_easyrefresh/bezier_circle_header.dart';
-import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
-import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:neighbours/res/res_index.dart';
-import 'package:neighbours/ui/pages/home/home_menu.dart';
 import 'package:neighbours/models/home_model.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
-import 'package:neighbours/ui/widgets/home_bg.dart';
 import 'package:neighbours/ui/widgets/button/button_widget.dart';
 import 'package:neighbours/ui/widgets/loadmore/refresh_safe_area.dart';
-import 'package:neighbours/ui/widgets/marquee/marquee.dart';
-import 'package:neighbours/ui/pages/home/home_animation.dart';
-import 'package:neighbours/ui/widgets/loadmore/loadmore.dart';
 import 'package:neighbours/ui/widgets/pullloadmore/allroundrefresher/all_round_refresher.dart';
 import 'package:neighbours/ui/widgets/pullloadmore/pull_load_more_view.dart';
 import 'package:neighbours/utils/util_index.dart';
 import 'package:neighbours/ui/pages/home/home_section.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:neighbours/utils/util_index.dart';
 import 'package:neighbours/ui/widgets/image/n_image.dart';
 import 'package:neighbours/ui/widgets/n_sliver.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:neighbours/ui/pages/home/home_comments.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 List<String> _bannerList = [
-  "http://pic37.nipic.com/20140113/8800276_184927469000_2.png",
-  "http://pic15.nipic.com/20110628/1369025_192645024000_2.jpg",
-  "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
-  "http://pic32.nipic.com/20130823/13339320_183302468194_2.jpg",
-  "http://pic40.nipic.com/20140412/18428321_144447597175_2.jpg"
+  "https://cdn.pixabay.com/photo/2016/10/21/14/50/plouzane-1758197_960_720.jpg",
+  "https://img.zcool.cn/community/01cbf45d91c5e7a8012060be33e1a4.jpg@1280w_1l_2o_100sh.jpg",
+  "https://cdn.pixabay.com/photo/2016/11/16/10/59/mountains-1828596_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2013/01/17/08/25/sunset-75159_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2016/11/16/10/59/mountains-1828596_960_720.jpg"
 ];
 List<Widget> _commentList = [
   new _Tile(
-      'https://cdn.pixabay.com/photo/2013/04/07/21/30/croissant-101636_960_720.jpg',
+      'https://cdn.pixabay.com/photo/2016/10/21/14/50/plouzane-1758197_960_720.jpg',
       1),
   new _Tile(
-      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557628407086&di=6daa5f05f0a0b32f1e5ed79d43b06d29&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2018-09-19%2F5ba1c5466ecf4.jpg',
+      'https://cdn.pixabay.com/photo/2016/11/16/10/59/mountains-1828596_960_720.jpg',
       2),
   new _Tile(
-      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557628455319&di=00f89daa91e4455163d6b2690fe60e65&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1607%2F03%2Fc3%2F23686542_1467513428497_mthumb.jpg',
+      'https://cdn.pixabay.com/photo/2013/01/17/08/25/sunset-75159_960_720.jpg',
       3),
   new _Tile(
       'https://cdn.pixabay.com/photo/2016/10/21/14/50/plouzane-1758197_960_720.jpg',
@@ -64,6 +49,9 @@ List<Widget> _commentList = [
   new _Tile(
       'https://cdn.pixabay.com/photo/2013/01/17/08/25/sunset-75159_960_720.jpg',
       8),
+  new _Tile(
+      'https://cdn.pixabay.com/photo/2017/08/24/22/37/gyrfalcon-2678684_960_720.jpg',
+      9),
 ];
 List<String> str = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 List<String> addStr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
@@ -138,25 +126,23 @@ class _HomeMainPageState extends State<HomeMainPage> {
     return Container(
       color: Colours.white,
       child: PullLoadMoreView(
-      controller: _controller,
-      // isNestWrapped: true,
-      enablePullUp: false,
-      onLoading: _loadMore,
-      onRefresh: _refresh,
-      child: CustomScrollView(
-        slivers: <Widget>[
-           SliverToBoxAdapter(
-              child: _getHeadView(),
-            ),
-            _getMarqueeView(),
-            _getEmptyDivider(),
-            _getDivider(),
-            _getGoodsWidget("优惠商品"),
-            _getEmptyDivider(),
-            _getDivider(),
-            _getCommentsWidget("精选动态"),
-            ]
+        controller: _controller,
+        // isNestWrapped: true,
+        enablePullUp: false,
+        onLoading: _loadMore,
+        onRefresh: _refresh,
+        child: CustomScrollView(slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: _getHeadView(),
           ),
+          _getMarqueeView(),
+          _getEmptyDivider(),
+          _getDivider(),
+          _getGoodsWidget("优惠商品"),
+          _getEmptyDivider(),
+          _getDivider(),
+          _getCommentsWidget("精选动态"),
+        ]),
       ),
     );
   }
@@ -255,7 +241,8 @@ class _HomeMainPageState extends State<HomeMainPage> {
         child: CContainer(
       color: Colours.white,
       height: 30.0,
-      padding: EdgeInsetsDirectional.only(start: 15.0,top: 5.0,end: 15.0,bottom: 5.0),
+      padding: EdgeInsetsDirectional.only(
+          start: 15.0, top: 5.0, end: 15.0, bottom: 5.0),
       direction: Direction.row,
       children: <Widget>[
         CText(
@@ -270,7 +257,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
             child: Align(
           alignment: Alignment.centerRight,
           child: RefreshSafeArea(
-            child:Swiper(
+            child: Swiper(
               itemBuilder: (BuildContext context, int index) {
                 return Center(child: Text(_tipList[index]));
               },
@@ -379,7 +366,7 @@ Widget _getGoodsWidget(String title) {
                       fit: StackFit.expand,
                       children: <Widget>[
                         imageStack(
-                            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557393600&di=c3f96864fde7a9f086f65d33505eec0f&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.62a.net%2Ftbimg%2Fimg%2Ftfscom%2Fi1%2F3285516940%2FTB1SrXMc_tYBeNjy1XdXXXXyVXa_%21%210-item_pic.jpg"),
+                            "https://img.zcool.cn/community/01cbf45d91c5e7a8012060be33e1a4.jpg@1280w_1l_2o_100sh.jpg"),
                         descStack(),
                         ratingStack(4.5),
                       ],
@@ -493,7 +480,7 @@ Widget productGrid() => SliverGrid.count(
                       fit: StackFit.expand,
                       children: <Widget>[
                         imageStack(
-                            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557393600&di=c3f96864fde7a9f086f65d33505eec0f&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.62a.net%2Ftbimg%2Fimg%2Ftfscom%2Fi1%2F3285516940%2FTB1SrXMc_tYBeNjy1XdXXXXyVXa_%21%210-item_pic.jpg"),
+                            "https://img.zcool.cn/community/01cbf45d91c5e7a8012060be33e1a4.jpg@1280w_1l_2o_100sh.jpg"),
                         descStack(),
                         ratingStack(4.5),
                       ],

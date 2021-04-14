@@ -7,7 +7,7 @@ import 'package:neighbours/models/user_info.dart';
 import 'package:neighbours/res/res_index.dart';
 import 'package:neighbours/ui/commonwidgets/comment_common_view.dart';
 import 'package:neighbours/ui/commonwidgets/user_common_bar.dart';
-import 'package:neighbours/ui/widgets/nested_refresh/x_nested_refresh_load_more.dart';
+import 'package:neighbours/ui/widgets/loadmore/x_refresh_load_more.dart';
 import 'package:neighbours/utils/util_index.dart';
 import 'package:neighbours/utils/utils.dart';
 import 'package:neighbours/models/comments.dart';
@@ -25,11 +25,9 @@ class _CommunityFollowState extends State<CommunityFollow>
 
   @override
   void initState() {
-    _dataLoader = _DataLoader(0);
+    _dataLoader = _DataLoader(1);
     super.initState();
   }
-
-  
 
   @override
   bool get wantKeepAlive => true;
@@ -41,7 +39,13 @@ class _CommunityFollowState extends State<CommunityFollow>
     //   contentBuilder: _contentBuilder,
     //   // isNestWrapped: true,
     // );
-    return MyRefreshLoadMoreList(enableQuickTop: true,enableRefresh: true,enableLoad: true,contentBuilder: _contentBuilder,dataLoader: _dataLoader,);
+    return RefreshLoadMoreList(
+      enableQuickTop: true,
+      enablePullDown: true,
+      enablePullUp: true,
+      contentBuilder: _contentBuilder,
+      dataLoader: _dataLoader,
+    );
   }
 
   CustomScrollView _contentBuilder(
@@ -207,6 +211,7 @@ class _CommunityFollowState extends State<CommunityFollow>
 
 /// 数据业务逻辑处理
 class _DataLoader extends DataLoadMoreBase<Comment, Model> {
+  bool _hasMore = true;
   int _id; // 请求时的参数
 
   _DataLoader(this._id);
@@ -216,14 +221,13 @@ class _DataLoader extends DataLoadMoreBase<Comment, Model> {
       bool isRefresh, int currentPage, int pageSize) async {
     await Future.delayed(Duration(seconds: 2));
 
+    if (currentPage == 1 && Random().nextBool()) {
+      return Model(data: List(), message: "加载成功", code: 0);
+    }
 
-    // if (currentPage == 1 && Random().nextBool()) {
-    //   return Model(data: List(), message: "暂无数据", code: 0);
-    // }
-
-    // if (Random().nextBool()) {
-    //   return Model(data: List(), message: "加载失败", code: 1);
-    // }
+    if (Random().nextBool()) {
+      return Model(data: null, message: "加载失败", code: 1);
+    }
 
     if (currentPage == 4) {
       return Model(
@@ -232,21 +236,33 @@ class _DataLoader extends DataLoadMoreBase<Comment, Model> {
           code: 0);
     }
 
+    // if (currentPage == 4) {
+    //   return Model(
+    //       data: new List.of(articleList.sublist(0, 2)),
+    //       message: "加载成功",
+    //       code: 0);
+    // }
+
     return Model(data: new List.of(articleList), message: "加载成功", code: 0);
   }
 
-  // @override
-  // Future<bool> handlerData(Model model, bool isRefresh) async{
-  //   if (model == null || model.isError()) {
-  //     return false;
-  //   }
+  @override
+  Future<bool> handlerData(Model model, bool isRefresh) async {
+    if (model == null || model.isError()) {
+      return false;
+    }
 
-  //   if (isRefresh) clear();
+    if (isRefresh) clear();
 
-  //   // todo 实际使用时这里需要修改
-  //   addAll((model.data as List<dynamic>).map((d) {
-  //     return d as Comment;
-  //   }));
-  //   return true;
-  // }
+    // todo 实际使用时这里需要修改
+    addAll((model.data as List<dynamic>).map((d) {
+      return d as Comment;
+    }));
+    return true;
+  }
+
+  @override
+  bool hasMore() {
+    return _hasMore;
+  }
 }

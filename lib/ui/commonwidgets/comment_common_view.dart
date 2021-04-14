@@ -39,18 +39,19 @@ class CommonCommonView extends StatelessWidget {
           },
           specialTextSpanBuilder: MySpecialTextSpanBuilder(),
           //overflow: TextOverflow.ellipsis,
-          overFlowTextSpan: OverFlowTextSpan(children: <TextSpan>[
-            TextSpan(text: '  \u2026  '),
-            TextSpan(
-                text: "全文",
-                style: TextStyle(
-                  color: Colors.blue,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    launch("https://github.com/fluttercandies/extended_text");
-                  })
-          ], 
+          overflowWidget: TextOverflowWidget(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text('\u2026 '),
+                RaisedButton(
+                  child: const Text('more'),
+                  onPressed: () {
+                    launch('https://github.com/fluttercandies/extended_text');
+                  },
+                )
+              ],
+            ),
           ),
           maxLines: 3,
         ),
@@ -93,12 +94,11 @@ class CommonCommonView extends StatelessWidget {
 
     if (rows == 1) {
       return Container(
-        padding: const EdgeInsets.only(top:10.0),
+        padding: const EdgeInsets.only(top: 10.0),
         alignment: Alignment.centerLeft,
         child: GestureDetector(
           onTap: () {
-            Application.router
-                .navigateTo(context, "/photoview");
+            Application.router.navigateTo(context, "/photoview");
           },
           child: ExtendedImage.network(
             pics[0],
@@ -106,7 +106,7 @@ class CommonCommonView extends StatelessWidget {
             fit: BoxFit.cover,
             width: ScreenUtil.getInstance().setWidth(700),
             height: ScreenUtil.getInstance().setWidth(700),
-             alignment: Alignment.topLeft,
+            alignment: Alignment.topLeft,
           ),
         ),
       );
@@ -125,9 +125,9 @@ class CommonCommonView extends StatelessWidget {
       ),
       children: pics.map<Widget>((imageUrl) {
         return GestureDetector(
-          
           onTap: () {
-            NavigatorUtil.pushPhotoViewBrowser(context,pics:pics,currentIndex:pics.indexOf(imageUrl));
+            NavigatorUtil.pushPhotoViewBrowser(context,
+                pics: pics, currentIndex: pics.indexOf(imageUrl));
           },
           child: ExtendedImage.network(
             imageUrl,

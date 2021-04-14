@@ -110,7 +110,7 @@ class _CommunityAllState extends State<CommunityAll>
         child: Column(
           children: <Widget>[
             Img(
-              "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557838312762&di=1d7001becc09ed70ce5de201588919cb&imgtype=0&src=http%3A%2F%2F365jia.cn%2Fuploads%2F17%2F0502%2F5907f632095f4.jpg",
+              "https://cdn.pixabay.com/photo/2016/11/16/10/59/mountains-1828596_960_720.jpg",
               radius: 2,
               width: 100,
               height: 90,

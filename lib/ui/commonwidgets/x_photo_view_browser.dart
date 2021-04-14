@@ -26,7 +26,7 @@ class XPhotoViewBrowser extends StatelessWidget {
             Widget image = ExtendedImage.network(
               url,
               fit: BoxFit.contain,
-              mode: ExtendedImageMode.Gesture,
+              mode: ExtendedImageMode.gesture,
               initGestureConfigHandler: (state) {
                 return GestureConfig(
                     minScale: 0.9,
