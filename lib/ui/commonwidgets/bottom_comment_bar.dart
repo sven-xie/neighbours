@@ -39,11 +39,13 @@ class CommentBar extends StatelessWidget {
         height: ScreenUtil.instance.setHeight(120),
         child: Row(
           children: <Widget>[
-            SizedBox(width: 10.0,),
+            SizedBox(
+              width: 10.0,
+            ),
             Hero(
               tag: "user_head_image",
               child: ExtendedImage.network(
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559274705846&di=7cc71bfccce544516ebc8bb9a9051428&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F75%2F45%2F28300001051406139579455890736_950.jpg",
+                "https://pic3.zhimg.com/50/2b8be8010409012e7cdd764e1befc4d1_s.jpg",
                 width: ScreenUtil.instance.setWidth(100),
                 height: ScreenUtil.instance.setWidth(100),
                 fit: BoxFit.fill,
@@ -52,7 +54,9 @@ class CommentBar extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
             ),
-            SizedBox(width: 10.0,),
+            SizedBox(
+              width: 10.0,
+            ),
             Expanded(
               child: DefaultTextStyle(
                 style: TextStyle(),

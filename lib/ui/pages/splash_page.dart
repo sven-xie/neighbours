@@ -38,6 +38,6 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _goMain() {
-    Application.router.navigateTo(context, Routes.mainPage);
+    Application.router.navigateTo(context, Routes.mainPage, clearStack: true);
   }
 }

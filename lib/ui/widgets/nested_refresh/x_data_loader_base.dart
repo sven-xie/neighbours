@@ -112,10 +112,6 @@ abstract class DataLoadMoreBase<DATA, MODEL> extends ListBase<DATA> {
     onStateChanged(this);
   }
 
-  /// 构造请求
-  /// [isRefresh] 是否清空原来的数据
-  /// [currentPage] 将要请求的页码
-  /// [pageSize] 每页多少数据
   @protected
   Future<Model> getRequest(bool isRefresh, int currentPage, int pageSize);
 

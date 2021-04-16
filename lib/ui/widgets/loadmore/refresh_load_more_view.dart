@@ -74,7 +74,7 @@ class _RefreshLoadMoreListState extends State<RefreshLoadMoreList>
     return StreamBuilder<DataLoadMoreBase>(
         stream: _loader.stream,
         builder: (context, snapshot) {
-          // var loader = snapshot.data;
+          var _loader = snapshot.data;
 
           /// 监听滑动结束广播
           return Scaffold(
@@ -103,11 +103,12 @@ class _RefreshLoadMoreListState extends State<RefreshLoadMoreList>
                       : widget.enablePullDown
                           ? RefreshIndicator(
                               child: SafeArea(
-                              top: false,
-                              bottom: false,
-                              child: Builder(builder: (BuildContext context) {
-                                return _contentBuilder(context, _loader);
-                              })),
+                                  top: false,
+                                  bottom: false,
+                                  child:
+                                      Builder(builder: (BuildContext context) {
+                                    return _contentBuilder(context, _loader);
+                                  })),
                               onRefresh: () => _loader.obtainData(true),
                             )
                           : SafeArea(

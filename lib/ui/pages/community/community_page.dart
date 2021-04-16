@@ -53,6 +53,7 @@ class _CommunityPageState extends State<CommunityPage>
               snap: true,
               title: new Text("鱼塘"),
               elevation: 3,
+              forceElevated: innerBoxIsScrolled,
               leading: IconButton(
                   icon: Icon(Icons.menu),
                   onPressed: () {

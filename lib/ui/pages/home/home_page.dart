@@ -18,6 +18,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 List<String> _bannerList = [
+  "https://img95.699pic.com/photo/40007/4125.jpg_wh300.jpg",
   "https://cdn.pixabay.com/photo/2016/10/21/14/50/plouzane-1758197_960_720.jpg",
   "https://img.zcool.cn/community/01cbf45d91c5e7a8012060be33e1a4.jpg@1280w_1l_2o_100sh.jpg",
   "https://cdn.pixabay.com/photo/2016/11/16/10/59/mountains-1828596_960_720.jpg",

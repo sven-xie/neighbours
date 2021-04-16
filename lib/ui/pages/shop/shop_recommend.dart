@@ -23,11 +23,11 @@ class _ShopRecommendState extends State<ShopRecommend>
   int get count => list.length;
   List<Comment> list = [];
   List<String> _bannerList = [
-    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558154373322&di=10fd65b4ab82644b34b0550924779354&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01bcd8581c59a8a84a0e282b8aeba1.jpg",
-    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558154373322&di=ff1aa59de093c7668b8d5444432dd1c6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a95b569c695032f87574be362522.png",
-    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558154373319&di=bd4071a3796e4478003322bac7f9190f&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01302557cfd7020000018c1b421850.jpg",
-    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558154373319&di=cad412e21677eee51097a17add14ec53&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01289b57e0dbf60000018c1b3ef1e0.jpg",
-    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558154373318&di=0ad82daa3163cd99008d3ec40b7c9858&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01d9d059719c16a8012193a355f532.jpg%40900w_1l_2o_100sh.jpg",
+    "https://th.bing.com/th/id/OIP.5YRSsEk6V7a4k8ewFSCGAAHaEo?pid=ImgDet&rs=1",
+    "https://th.bing.com/th/id/OIP.5YRSsEk6V7a4k8ewFSCGAAHaEo?pid=ImgDet&rs=1",
+    "https://th.bing.com/th/id/OIP.5YRSsEk6V7a4k8ewFSCGAAHaEo?pid=ImgDet&rs=1",
+    "https://th.bing.com/th/id/OIP.5YRSsEk6V7a4k8ewFSCGAAHaEo?pid=ImgDet&rs=1",
+    "https://th.bing.com/th/id/OIP.5YRSsEk6V7a4k8ewFSCGAAHaEo?pid=ImgDet&rs=1",
   ];
   DataLoadMoreBase _dataLoader;
 
@@ -35,14 +35,13 @@ class _ShopRecommendState extends State<ShopRecommend>
   void initState() {
     _dataLoader = _DataLoader(0);
     super.initState();
-  }   
+  }
 
   @override
   bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-
     return RefreshLoadMoreList(
       dataLoader: _dataLoader,
       contentBuilder: _contentBuilder,
@@ -50,83 +49,84 @@ class _ShopRecommendState extends State<ShopRecommend>
     );
   }
 
-  ScrollView _contentBuilder(BuildContext context, DataLoadMoreBase dataLoader) {
+  ScrollView _contentBuilder(
+      BuildContext context, DataLoadMoreBase dataLoader) {
     var itemCount = dataLoader.length;
     return CustomScrollView(
-              slivers: <Widget>[
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                          color: Colours.white,
-                          width: double.infinity,
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          height: ScreenUtil.getInstance().setHeight(450.0),
-                          child: RefreshSafeArea(
-                            child: Swiper(
-                              itemBuilder: (BuildContext context, int index) {
-                                return CacheImgRadius(
-                                    imgUrl: _bannerList[index], radius: 0);
-                              },
-                              pagination: new SwiperPagination(
-                                  builder: DotSwiperPaginationBuilder(
-                                color: Colours.transparent_80,
-                                activeColor: Colours.white,
-                                activeSize: 6.0,
-                                size: 6.0,
-                              )),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: _bannerList.length,
-                              viewportFraction: 1,
-                              scale: 1,
-                              autoplay: true,
-                            ),
-                          )),
-                      HomeSectionView(
-                          "活动商品",
-                          () => Scaffold.of(context).showSnackBar(new SnackBar(
-                                  content: CText(
-                                "活动商品",
-                                textSize: 14,
-                                bold: true,
-                              )))),
-                      Container(
-                        color: Colours.white,
-                        height: 140,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (index == 8) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: Text("查看更多"),
-                                ),
-                              );
-                            }
-                            return _buildDiscountListItem(context);
-                          },
-                          itemCount: 9,
+      slivers: <Widget>[
+        SliverToBoxAdapter(
+          child: Column(
+            children: <Widget>[
+              Container(
+                  color: Colours.white,
+                  width: double.infinity,
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  height: ScreenUtil.getInstance().setHeight(450.0),
+                  child: RefreshSafeArea(
+                    child: Swiper(
+                      itemBuilder: (BuildContext context, int index) {
+                        return CacheImgRadius(
+                            imgUrl: _bannerList[index], radius: 0);
+                      },
+                      pagination: new SwiperPagination(
+                          builder: DotSwiperPaginationBuilder(
+                        color: Colours.transparent_80,
+                        activeColor: Colours.white,
+                        activeSize: 6.0,
+                        size: 6.0,
+                      )),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _bannerList.length,
+                      viewportFraction: 1,
+                      scale: 1,
+                      autoplay: true,
+                    ),
+                  )),
+              HomeSectionView(
+                  "活动商品",
+                  () => Scaffold.of(context).showSnackBar(new SnackBar(
+                          content: CText(
+                        "活动商品",
+                        textSize: 14,
+                        bold: true,
+                      )))),
+              Container(
+                color: Colours.white,
+                height: 140,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 8) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text("查看更多"),
                         ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 10.0,
-                        color: Colours.app_bg,
-                      ),
-                    ],
-                  ),
+                      );
+                    }
+                    return _buildDiscountListItem(context);
+                  },
+                  itemCount: 9,
                 ),
-                SliverStaggeredGrid.countBuilder(
-                  itemCount: itemCount,
-                  crossAxisCount: 4,
-                  mainAxisSpacing: 0.0,
-                  crossAxisSpacing: 0.0,
-                  itemBuilder: (context, index) => new GoodItem(index),
-                  staggeredTileBuilder: (index) => new StaggeredTile.fit(2),
-                ),
-              ],
-            );
+              ),
+              Container(
+                width: double.infinity,
+                height: 10.0,
+                color: Colours.app_bg,
+              ),
+            ],
+          ),
+        ),
+        SliverStaggeredGrid.countBuilder(
+          itemCount: itemCount,
+          crossAxisCount: 4,
+          mainAxisSpacing: 0.0,
+          crossAxisSpacing: 0.0,
+          itemBuilder: (context, index) => new GoodItem(index),
+          staggeredTileBuilder: (index) => new StaggeredTile.fit(2),
+        ),
+      ],
+    );
   }
 
   Widget _buildDiscountListItem(BuildContext context) {
@@ -164,7 +164,6 @@ class _ShopRecommendState extends State<ShopRecommend>
     );
   }
 }
-
 
 /// 数据业务逻辑处理
 class _DataLoader extends DataLoadMoreBase<Comment, Model> {

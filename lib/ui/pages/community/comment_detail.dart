@@ -1,6 +1,5 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -273,9 +272,10 @@ class _CommentDetailBodyState extends State<_CommentDetailBody>
     ));
   }
 
-  Future<void> onRefresh() async {
+  Future<bool> onRefresh() async {
     await Future.delayed(Duration(seconds: 0, milliseconds: 2000));
     list.clear();
+    return true;
   }
 
   CustomScrollView _contentBuilder4(
